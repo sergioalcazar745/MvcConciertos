@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MvcConciertos.Models.Evento>
+@inject Secret secret
+
+@{
+    ViewData["Title"] = "Index";
+    List<CategoriaEvento> categorias = ViewData["CATEGORIAS"] as List<CategoriaEvento>;
+}
+
+<h1>Eventos</h1>
+
+<form method="post">
+    <select name="id" class="form-control">
+        @foreach (CategoriaEvento categoria in categorias)
+        {
+            <option value="@categoria.Idcategoria">@categoria.Nombre</option>
+        }
+    </select>
+    <button class="btn btn-info">Filtrar</button>
+</form>
+
+<p>
+    <a asp-action="Create">Crear nuevo evento</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artista)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagen)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artista)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCategoria)
+                </td>
+                <td>
+                    <img src="@secret.imagenes@Html.DisplayFor(modelItem => item.Imagen)" width="200" height="200" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
